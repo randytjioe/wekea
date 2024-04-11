@@ -4,6 +4,7 @@ import { Ionicons } from "react-native-vector-icons";
 import HomeScreen from "../views/screen/home/HomeScreen";
 import FavoriteScreen from "../views/screen/home/FavoriteScreen";
 import DiscoverScreen from "../views/screen/home/DiscoverScreen";
+import CartScreen from "../views/screen/home/CartScreen";
 
 const Tabs = createBottomTabNavigator();
 
@@ -53,14 +54,14 @@ export default function HomeTabs() {
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
-              name={focused ? "heart" : "heart-outline"}
+              name={focused ? "cart" : "cart-outline"}
               size={size}
               color={color}
             />
           ),
         }}
-        name="Favorite"
-        component={FavoriteScreen}
+        name="Cart"
+        component={CartScreen}
       />
     </Tabs.Navigator>
   );

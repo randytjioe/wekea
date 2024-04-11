@@ -1,20 +1,21 @@
-import { Text, View, StyleSheet, FlatList } from 'react-native';
-import React from 'react';
-import GlobalStyles from '../../../styles/GlobalStyles';
+import { Text, View, StyleSheet, FlatList, Image } from "react-native";
+import React from "react";
+import GlobalStyles from "../../../styles/GlobalStyles";
+import { List, IconButton, Button } from "react-native-paper";
 
 const styles = StyleSheet.create({
   cartItem: {
     marginHorizontal: 20,
-    backgroundColor: '#ECECED',
+    backgroundColor: "#ECECED",
     padding: 10,
     borderRadius: 10,
     marginVertical: 10,
   },
   cartItemLeft: {
     margin: 0,
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "center",
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   cartItemImg: {
@@ -24,15 +25,15 @@ const styles = StyleSheet.create({
   },
 
   cartItemRight: {
-    alignItems: 'center',
+    alignItems: "center",
     margin: 0,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
 
   checkoutBtnContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 100,
-    width: '100%',
+    width: "100%",
   },
 
   checkoutButton: {
@@ -44,9 +45,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 20,
     borderRadius: 10,
-    backgroundColor: '#ECECED',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#ECECED",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
@@ -55,28 +56,28 @@ export default function CartScreen() {
   const DUMMY_CART_ITEMS = [
     {
       id: 1,
-      name: 'Lemari',
+      name: "Lemari",
       price: 10,
-      image: 'https://picsum.photos/700',
+      image: "https://picsum.photos/700",
       quantity: 1,
     },
     {
       id: 2,
-      name: 'Meja',
+      name: "Meja",
       price: 20,
-      image: 'https://picsum.photos/700',
+      image: "https://picsum.photos/700",
       quantity: 1,
     },
     {
       id: 3,
-      name: 'Kursi',
+      name: "Kursi",
       price: 30,
-      image: 'https://picsum.photos/700',
+      image: "https://picsum.photos/700",
       quantity: 1,
     },
   ];
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Text
         style={{
           ...GlobalStyles.largeFont,
@@ -88,8 +89,36 @@ export default function CartScreen() {
       </Text>
       <FlatList
         data={DUMMY_CART_ITEMS}
-        renderItem={(item) => <Text>{item.item.name}</Text>}
+        renderItem={({ item }) => <CartItem item={item} />}
       />
+      <View style={styles.checkoutBtnContainer}>
+        <Button style={styles.checkoutButton} mode="contained">
+          Checkout
+        </Button>
+      </View>
     </View>
+  );
+}
+function CartItem({ item }) {
+  return (
+    <List.Item
+      style={styles.cartItem}
+      left={() => (
+        <View style={styles.cartItemLeft}>
+          <Image source={{ uri: item.image }} style={styles.cartItemImg} />
+          <View>
+            <Text style={GlobalStyles.mediumFont}>{item.name}</Text>
+            <Text style={GlobalStyles.regularFont}>{`$ ${item.price}`}</Text>
+          </View>
+        </View>
+      )}
+      right={() => (
+        <View style={styles.cartItemRight}>
+          <IconButton icon="plus" size={14} />
+          <Text>{item.quantity}</Text>
+          <IconButton icon="minus" size={14} />
+        </View>
+      )}
+    />
   );
 }
