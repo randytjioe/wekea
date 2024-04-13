@@ -1,7 +1,8 @@
-import { View, Linking, Platform, Text } from 'react-native';
+import { View, Linking, Platform } from 'react-native';
 import React from 'react';
 import { Card, IconButton } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
+import Typography from '../Global/Typography';
 
 export default function CardDiscoverItem({ item }) {
   return (
@@ -22,8 +23,12 @@ export default function CardDiscoverItem({ item }) {
         }}
       >
         <View>
-          <Text style={{ fontSize: 18, fontWeight: '500' }}>{item.title}</Text>
-          <Text>{item.address}</Text>
+          <Typography weight="bold" size="large">
+            {item.title}
+          </Typography>
+          <Typography weight="normal" size="medium">
+            {item.address}
+          </Typography>
         </View>
         <IconButton
           mode="outlined"
@@ -31,8 +36,9 @@ export default function CardDiscoverItem({ item }) {
             Linking.openURL(
               Platform.OS === 'ios'
                 ? `maps://app?daddr=${item.coordinate.latitude},${item.coordinate.longitude}`
-                : `google.navigation:q=${item.coordinate.latitude},${item.coordinate.longitude}`,
-            )}
+                : `google.navigation:q=${item.coordinate.latitude},${item.coordinate.longitude}`
+            )
+          }
           icon={() => <Ionicons size={24} name="locate" />}
         />
       </Card.Content>

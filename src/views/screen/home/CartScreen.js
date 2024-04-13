@@ -1,124 +1,64 @@
-import { Text, View, StyleSheet, FlatList, Image } from "react-native";
-import React from "react";
-import GlobalStyles from "../../../styles/GlobalStyles";
-import { List, IconButton, Button } from "react-native-paper";
-
-const styles = StyleSheet.create({
-  cartItem: {
-    marginHorizontal: 20,
-    backgroundColor: "#ECECED",
-    padding: 10,
-    borderRadius: 10,
-    marginVertical: 10,
-  },
-  cartItemLeft: {
-    margin: 0,
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-  },
-  cartItemImg: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-  },
-
-  cartItemRight: {
-    alignItems: "center",
-    margin: 0,
-    flexDirection: "row",
-  },
-
-  checkoutBtnContainer: {
-    position: "absolute",
-    bottom: 100,
-    width: "100%",
-  },
-
-  checkoutButton: {
-    marginHorizontal: 20,
-    borderRadius: 10,
-  },
-
-  cartTrashButton: {
-    marginVertical: 10,
-    marginHorizontal: 20,
-    borderRadius: 10,
-    backgroundColor: "#ECECED",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
+import { useMemo, useState } from 'react';
+import { FlatList } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
+import SwipableCart from '../../../components/Cart/SwipableCart';
+import Container from '../../../components/Global/Container';
+import Typography from '../../../components/Global/Typography';
+import priceFormatter from '../../../utils/helpers/priceFormatting';
 
 export default function CartScreen() {
   // Dummy Cart Item
   const DUMMY_CART_ITEMS = [
     {
       id: 1,
-      name: "Lemari",
+      name: 'Lemari',
       price: 10,
-      image: "https://picsum.photos/700",
+      image: 'https://picsum.photos/700',
       quantity: 1,
     },
     {
       id: 2,
-      name: "Meja",
+      name: 'Meja',
       price: 20,
-      image: "https://picsum.photos/700",
+      image: 'https://picsum.photos/700',
       quantity: 1,
     },
     {
       id: 3,
-      name: "Kursi",
+      name: 'Kursi',
       price: 30,
-      image: "https://picsum.photos/700",
+      image: 'https://picsum.photos/700',
       quantity: 1,
     },
   ];
-  return (
-    <View style={{ flex: 1 }}>
-      <Text
-        style={{
-          ...GlobalStyles.largeFont,
-          marginVertical: 10,
-          marginHorizontal: 20,
-        }}
-      >
-        Cart
-      </Text>
-      <FlatList
-        data={DUMMY_CART_ITEMS}
-        renderItem={({ item }) => <CartItem item={item} />}
-      />
-      <View style={styles.checkoutBtnContainer}>
-        <Button style={styles.checkoutButton} mode="contained">
-          Checkout
-        </Button>
-      </View>
-    </View>
+
+  const [data, setData] = useState(DUMMY_CART_ITEMS);
+  const totalPrice = useMemo(() =>
+    data.reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
   );
-}
-function CartItem({ item }) {
-  return (
-    <List.Item
-      style={styles.cartItem}
-      left={() => (
-        <View style={styles.cartItemLeft}>
-          <Image source={{ uri: item.image }} style={styles.cartItemImg} />
-          <View>
-            <Text style={GlobalStyles.mediumFont}>{item.name}</Text>
-            <Text style={GlobalStyles.regularFont}>{`$ ${item.price}`}</Text>
-          </View>
-        </View>
-      )}
-      right={() => (
-        <View style={styles.cartItemRight}>
-          <IconButton icon="plus" size={14} />
-          <Text>{item.quantity}</Text>
-          <IconButton icon="minus" size={14} />
-        </View>
-      )}
+
+  const handleDelete = (id) => {
+    setData(data.filter((item) => item.id !== id));
+  };
+  const renderItem = ({ item, index }) => (
+    <SwipableCart
+      data={data}
+      setData={setData}
+      handleDelete={handleDelete}
+      item={item}
+      index={index}
     />
+  );
+  return (
+    <Container>
+      <Typography size="large" weight="bold">
+        Cart
+      </Typography>
+      <FlatList data={data} renderItem={renderItem} />
+      <Button mode="outlined" onPress={() => alert('Checkout')}>
+        Checkout&nbsp;
+        {priceFormatter(totalPrice)}
+      </Button>
+    </Container>
   );
 }

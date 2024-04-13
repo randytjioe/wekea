@@ -1,10 +1,10 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "react-native-vector-icons";
-import HomeScreen from "../views/screen/home/HomeScreen";
-import FavoriteScreen from "../views/screen/home/FavoriteScreen";
-import DiscoverScreen from "../views/screen/home/DiscoverScreen";
-import CartScreen from "../views/screen/home/CartScreen";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from 'react-native-vector-icons';
+import HomeScreen from '../views/screen/home/HomeScreen';
+import DiscoverScreen from '../views/screen/home/DiscoverScreen';
+import CartScreen from '../views/screen/home/CartScreen';
+import TransactionScreen from '../views/screen/home/TransactionScreen';
 
 const Tabs = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ export default function HomeTabs() {
         tabBarShowLabel: false,
         headerShown: false,
         tabBarStyle: {
-          position: "absolute",
+          position: 'absolute',
           bottom: 25,
           left: 20,
           right: 20,
@@ -28,7 +28,7 @@ export default function HomeTabs() {
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
-              name={focused ? "home" : "home-outline"}
+              name={focused ? 'home' : 'home-outline'}
               size={size}
               color={color}
             />
@@ -41,7 +41,7 @@ export default function HomeTabs() {
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
-              name={focused ? "map" : "map-outline"}
+              name={focused ? 'map' : 'map-outline'}
               size={size}
               color={color}
             />
@@ -54,7 +54,7 @@ export default function HomeTabs() {
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons
-              name={focused ? "cart" : "cart-outline"}
+              name={focused ? 'cart' : 'cart-outline'}
               size={size}
               color={color}
             />
@@ -62,6 +62,19 @@ export default function HomeTabs() {
         }}
         name="Cart"
         component={CartScreen}
+      />
+      <Tabs.Screen
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons
+              name={focused ? 'receipt' : 'receipt-outline'}
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        name="Transaction"
+        component={TransactionScreen}
       />
     </Tabs.Navigator>
   );
