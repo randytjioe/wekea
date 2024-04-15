@@ -22,8 +22,10 @@
     "react/jsx-curly-newline": 0,
     "function-paren-newline": 0,
     "react/jsx-one-expression-per-line": 0,
-    "global-require":0,
-    "import/no-unresolved":0,
-    "react/react-in-jsx-scope":0
+    "global-require": 0,
+    "import/no-unresolved": 0,
+    "react/react-in-jsx-scope": 0,
+    "no-restricted-exports": 0,
+    "react/jsx-props-no-spreading": 0
   }
 }

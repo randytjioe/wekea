@@ -21,6 +21,7 @@ module.exports = function (api) {
             '@views': './src/views',
             '@styles': './src/styles',
             '@routes': './src/routes',
+            '@context': './src/context',
           },
         },
       ],

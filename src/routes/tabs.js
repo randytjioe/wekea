@@ -1,14 +1,39 @@
-import React from 'react';
+import CartScreen from '@components/Screens/CartScreen';
+import DiscoverScreen from '@components/Screens/DiscoverScreen';
+import HomeScreen from '@components/Screens/HomeScreen';
+import TransactionScreen from '@components/Screens/TransactionScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from 'react-native-vector-icons';
-import HomeScreen from '../views/screen/home/HomeScreen';
-import DiscoverScreen from '../views/screen/home/DiscoverScreen';
-import CartScreen from '../views/screen/home/CartScreen';
-import TransactionScreen from '../views/screen/home/TransactionScreen';
 
 const Tabs = createBottomTabNavigator();
 
 export default function HomeTabs() {
+  const tabsMap = [
+    {
+      name: 'Home',
+      component: HomeScreen,
+      icon: 'home',
+      iconOutline: 'home-outline',
+    },
+    {
+      name: 'Discover',
+      component: DiscoverScreen,
+      icon: 'map',
+      iconOutline: 'map-outline',
+    },
+    {
+      name: 'Cart',
+      component: CartScreen,
+      icon: 'cart',
+      iconOutline: 'cart-outline',
+    },
+    {
+      name: 'Transactiom',
+      component: TransactionScreen,
+      icon: 'receipt',
+      iconOutline: 'receipt-outline',
+    },
+  ];
   return (
     <Tabs.Navigator
       screenOptions={{
@@ -24,58 +49,24 @@ export default function HomeTabs() {
         },
       }}
     >
-      <Tabs.Screen
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={focused ? 'home' : 'home-outline'}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-        name="Home"
-        component={HomeScreen}
-      />
-      <Tabs.Screen
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={focused ? 'map' : 'map-outline'}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-        name="Discover"
-        component={DiscoverScreen}
-      />
-      <Tabs.Screen
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={focused ? 'cart' : 'cart-outline'}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-        name="Cart"
-        component={CartScreen}
-      />
-      <Tabs.Screen
-        options={{
-          tabBarIcon: ({ focused, color, size }) => (
-            <Ionicons
-              name={focused ? 'receipt' : 'receipt-outline'}
-              size={size}
-              color={color}
-            />
-          ),
-        }}
-        name="Transaction"
-        component={TransactionScreen}
-      />
+
+      {tabsMap.map((tab) => (
+        <Tabs.Screen
+          key={tab.name}
+          name={tab.name}
+          component={tab.component}
+          options={{
+            tabBarIcon: ({ focused, color, size }) => (
+              <Ionicons
+                name={focused ? tab.icon : tab.iconOutline}
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+      ))}
+
     </Tabs.Navigator>
   );
 }

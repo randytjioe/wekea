@@ -8,7 +8,8 @@
       "@constants/*": ["src/constants/*"],
       "@views/*": ["src/views/*"],
       "@styles/*": ["src/styles/*"],
-      "@routes/*": ["src/routes/*"]
+      "@routes/*": ["src/routes/*"],
+      "@context/*": ["src/context/*"]
     }
   }
 }
