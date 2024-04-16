@@ -6,10 +6,11 @@ import { Pressable, ScrollView } from 'react-native';
 import { Avatar, List } from 'react-native-paper';
 import { Ionicons } from 'react-native-vector-icons';
 
-import menuData from './MenuScreen.constants';
+import useMenuScreen from './MenuScreen.hooks';
 import MenuItems from './MenuScreen.styles';
 
 export default function MenuScreen({ navigation }) {
+  const { menuData } = useMenuScreen();
   return (
     <ScrollView>
       <Container bgColor="#fff">
@@ -41,7 +42,7 @@ export default function MenuScreen({ navigation }) {
             {menu.menuItems.map((item) => (
               <Pressable
                 key={Math.random()}
-                onPress={item.path ? () => navigation.navigate(item.path) : () => {}}
+                onPress={item.onPress}
               >
                 <List.Item
                   left={() => (
