@@ -11,6 +11,7 @@ import { LogBox } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { MD3LightTheme as DefaultTheme, PaperProvider } from 'react-native-paper';
 
+import { AuthProvider } from '@context/AuthContext';
 import { GlobalSheetBottom } from '@context/BottomSheetContext';
 import CustomSafeArea from './src/components/Shared/CustomSafeArea/CustomSafeArea';
 import Routes from './src/routes';
@@ -45,7 +46,9 @@ export default function App() {
       <PaperProvider theme={theme}>
         <GestureHandlerRootView style={{ flex: 1 }}>
           <GlobalSheetBottom>
-            <Routes />
+            <AuthProvider>
+              <Routes />
+            </AuthProvider>
           </GlobalSheetBottom>
         </GestureHandlerRootView>
       </PaperProvider>

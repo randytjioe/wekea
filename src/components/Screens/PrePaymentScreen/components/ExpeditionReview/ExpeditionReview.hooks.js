@@ -25,7 +25,6 @@ const expeditionData = [
 ];
 const useExpeditionReview = () => {
   const [selectedExpedition, setSelectedExpedition] = useState(expeditionData[0]);
-
   const { showModal, hideModal } = useGlobalBottomSheet();
   const selectHandler = (value) => {
     const selected = expeditionData.find((expedition) => expedition.value === value);
@@ -52,7 +51,6 @@ const useExpeditionReview = () => {
   return {
     selectedExpedition,
     showBottomSheet,
-    hideModal
   };
 };
 
